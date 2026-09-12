@@ -1,0 +1,14 @@
+.jlc-inactive{--ia-bg:#fff;--ia-text:#101018;--ia-muted:#626271;--ia-faint:#8b8b98;--ia-hairline:rgba(24,24,42,.1);position:relative;isolation:isolate;min-height:100svh;display:flex;flex-direction:column;align-items:center;background:var(--ia-bg);color:var(--ia-text);overflow:hidden}
+.jlc-inactive-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(700px 480px at 50% 0%,rgba(49,46,142,.12),transparent 66%),linear-gradient(rgba(49,46,142,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(49,46,142,.035) 1px,transparent 1px);background-size:auto,48px 48px,48px 48px}
+.jlc-inactive-main{position:relative;z-index:1;flex:1;width:100%;max-width:680px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(3.5rem,8vh,5.5rem) clamp(1.25rem,4vw,2rem)}
+.jlc-inactive-brand{display:inline-flex;align-items:center;gap:.8rem;margin-bottom:2.5rem;font-weight:800}
+.jlc-inactive-title{font-size:clamp(2rem,6.2vw,3.35rem);line-height:.98;letter-spacing:-.045em;max-width:15ch}
+.jlc-inactive-subtitle{margin-top:1.2rem;max-width:32ch;line-height:1.6;color:var(--ia-muted)}
+.jlc-inactive-divider{width:32px;height:1px;margin:1.6rem auto;background:var(--ia-hairline)}
+.jlc-inactive-contact{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.jlc-inactive-cta,.jlc-inactive-link{height:42px;padding:0 20px;border-radius:999px;display:inline-flex;align-items:center;border:1px solid var(--ia-hairline);font-size:13px;font-weight:700}
+.jlc-inactive-cta{background:var(--site-accent);color:#fff;border-color:transparent}
+.jlc-inactive-link{background:#fff;color:var(--ia-text)}
+.jlc-inactive-footer{position:relative;z-index:1;width:100%;min-height:56px;padding:16px;display:grid;place-items:center;border-top:1px solid var(--ia-hairline);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ia-faint)}
+.ia-reveal{opacity:0;transform:translateY(10px);animation:iaReveal .78s cubic-bezier(.16,1,.3,1) forwards}.ia-d1{animation-delay:.08s}.ia-d2{animation-delay:.18s}.ia-d3{animation-delay:.3s}.ia-d4{animation-delay:.42s}.ia-d5{animation-delay:.52s}@keyframes iaReveal{to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.ia-reveal{animation:none;opacity:1;transform:none}}

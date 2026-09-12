@@ -1,0 +1,89 @@
+import { useEffect, useState } from 'react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { SITE } from '../config/site.js'
+
+export default function Header({ onCartOpen, cartCount }) {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1024px)')
+    const closeDesktopMenu = () => media.matches && setMenuOpen(false)
+    media.addEventListener('change', closeDesktopMenu)
+    return () => media.removeEventListener('change', closeDesktopMenu)
+  }, [])
+
+  const nav = [
+    { label: 'Início', to: '/' },
+    { label: 'Produtos', to: '/loja' },
+    { label: 'Contato', to: '/contato' },
+  ]
+
+  const handleInicio = (event) => {
+    event.preventDefault()
+    if (location.pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' })
+    else navigate('/')
+    setMenuOpen(false)
+  }
+
+  return (
+    <header className={`site-header ${scrolled ? 'site-header-scrolled' : ''} ${menuOpen ? 'site-header-menu-open' : ''}`}>
+      <div className="site-header-inner">
+        <a href="/" onClick={handleInicio} className="nav-brand" aria-label="JLC Importados, página inicial">
+          <span className="brand-logo-frame"><img src={SITE.logo} alt="" className="nav-brand-logo" /></span>
+          <span>JLC Importados</span>
+        </a>
+
+        <nav className="site-nav-center hidden lg:flex" aria-label="Navegação principal">
+          <ul className="nav-segmented">
+            {nav.map((item) => (
+              <li key={item.label}>
+                {item.to === '/' ? (
+                  <a href="/" onClick={handleInicio} className={`nav-segment ${location.pathname === '/' ? 'is-active' : ''}`}>{item.label}</a>
+                ) : (
+                  <NavLink to={item.to} className={({isActive})=> `nav-segment ${isActive ? 'is-active' : ''}`}>{item.label}</NavLink>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="site-nav-actions hidden lg:flex">
+          <button type="button" onClick={onCartOpen} className="nav-icon-btn" aria-label="Abrir carrinho">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z" /><path d="M6 6L5 2H2" /><circle cx="9" cy="20" r="1.6" /><circle cx="18" cy="20" r="1.6" /></svg>
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+          </button>
+          <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="nav-store-cta nav-store-cta--whatsapp desktop-only" aria-label="WhatsApp da JLC Importados">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.06 0 11.29c0 2.07.6 4.03 1.66 5.74L0 24l7.2-1.6A12.3 12.3 0 0 0 12 22.58c6.63 0 12-5.06 12-11.29S18.63 0 12 0Zm0 20.52a10.3 10.3 0 0 1-5.25-1.42l-.38-.22-4.27.95.91-3.93-.26-.42A10.2 10.2 0 0 1 1.9 11.29C1.9 6.08 6.48 1.8 12 1.8S22.1 6.08 22.1 11.29 17.52 20.52 12 20.52Zm5.8-7.68c-.32-.15-1.9-.93-2.2-1.04-.29-.11-.5-.15-.71.15-.21.3-.82 1.04-1.01 1.25-.19.21-.38.24-.7.08-.32-.15-1.35-.49-2.57-1.56-.95-.83-1.59-1.86-1.78-2.17-.19-.31-.02-.48.14-.63.14-.14.32-.36.48-.54.16-.18.21-.31.32-.52.1-.21.05-.39-.03-.54-.08-.15-.71-1.69-.97-2.31-.26-.6-.52-.52-.71-.53h-.61c-.21 0-.54.08-.82.39-.29.31-1.09 1.05-1.09 2.56s1.12 2.97 1.27 3.18c.15.21 2.2 3.32 5.33 4.66.75.32 1.33.51 1.78.65.75.23 1.43.2 1.97.12.6-.09 1.9-.77 2.17-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.36Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+
+        <button type="button" className="mobile-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>
+          {menuOpen ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg> : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>}
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="mobile-menu lg:hidden">
+          {nav.map((item) => item.to === '/' ? (
+            <a key={item.label} href="/" onClick={handleInicio} className={location.pathname === '/' ? 'is-active' : ''}>{item.label}</a>
+          ) : (
+            <NavLink key={item.label} to={item.to} onClick={()=>setMenuOpen(false)} className={({isActive})=> isActive ? 'is-active' : ''}>{item.label}</NavLink>
+          ))}
+          <button onClick={() => { setMenuOpen(false); onCartOpen() }}>Carrinho {cartCount > 0 ? `(${cartCount})` : ''}</button>
+          <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="mobile-whatsapp">WhatsApp</a>
+        </div>
+      )}
+    </header>
+  )
+}
