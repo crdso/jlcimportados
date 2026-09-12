@@ -1,8 +1,3 @@
-import { useContext } from 'react'
-import { CartContext } from '../context/cart.js'
-
-export function useCart(){
-  const value = useContext(CartContext)
-  if(!value) throw new Error('useCart missing provider')
-  return value
-}
+import { useCart as useCartCtx } from '../context/CartContext.jsx'
+export function useCart(){ return useCartCtx() }
+export default useCart

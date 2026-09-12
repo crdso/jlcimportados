@@ -4,9 +4,9 @@ import ProductCard from '../components/ProductCard.jsx'
 import ProductModal from '../components/ProductModal.jsx'
 import products from '../data/products.json'
 import './Loja.css'
-import { useCart } from '../hooks/useCart.js'
+import { useCart } from '../context/CartContext.jsx'
 
-const CATS = ['Todos','iPhones','Samsung','Xiaomi','Realme']
+const CATS = ['Todos']
 
 export default function Loja(){
   const [q,setQ]=useState('')
@@ -40,33 +40,29 @@ export default function Loja(){
           <div>
             <p className="section-kicker">JLC IMPORTADOS</p>
             <h1 className="store-hero-title">Tecnologia para escolher bem.</h1>
-            <p className="store-hero-lead">Explore aparelhos novos e seminovos, consulte os detalhes e fale com a equipe pelo WhatsApp.</p>
+            <p className="store-hero-lead">Explore o catálogo e fale com a equipe da JLC Importados pelo WhatsApp para consultar detalhes.</p>
           </div>
           <div className="store-hero-visual store-hero-banner">
             <div className="store-hero-banner-inner">
-              <span className="store-hero-orbit" aria-hidden="true" />
-              <img src="/images/iphone17.webp" alt="iPhone 17" className="store-hero-product store-hero-product--main" />
-              <img src="/images/galaxys26ultra.jfif" alt="Galaxy S26 Ultra" className="store-hero-product store-hero-product--left" />
-              <img src="/images/pocox8pro.PNG" alt="POCO X8 Pro" className="store-hero-product store-hero-product--right" />
-              <span className="store-hero-signature">JLC</span>
+              <img src="/logo-jlc.png" alt="JLC Importados" style={{objectFit:'contain', padding:24, background:'#fff'}} />
             </div>
           </div>
         </div>
         <div className="store-hero-benefits">
           <div className="store-benefit">
             <ShieldCheck size={20} strokeWidth={1.8} />
-            <strong>Garantia</strong>
-             <span>Informação por produto</span>
+            <strong>Atendimento</strong>
+            <span>Canal oficial</span>
           </div>
           <div className="store-benefit">
             <Truck size={20} strokeWidth={1.8} />
-             <strong>Catálogo</strong>
-             <span>Modelos selecionados</span>
+            <strong>Catálogo</strong>
+            <span>Consulte disponibilidade</span>
           </div>
           <div className="store-benefit">
             <SlidersHorizontal size={20} strokeWidth={1.8} />
-            <strong>Atendimento</strong>
-             <span>Contato pelo WhatsApp</span>
+            <strong>Contato</strong>
+            <span>WhatsApp oficial</span>
           </div>
         </div>
       </section>

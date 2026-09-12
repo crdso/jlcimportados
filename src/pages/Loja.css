@@ -1,7 +1,7 @@
-/* LOJA — baseado nos 6 JSONs ref/produtos (390/440/811)
-   não copiar assets/código, usar vars light/dark */
+﻿/* LOJA â€” baseado nos 6 JSONs ref/produtos (390/440/811)
+   nÃ£o copiar assets/cÃ³digo, usar vars light/dark */
 
-/* HERO — SECTION.store-hero-open max-w 1280 mx-auto px-4 sm:px-6 */
+/* HERO â€” SECTION.store-hero-open max-w 1280 mx-auto px-4 sm:px-6 */
 .store-hero-open{
   max-width: 1280px;
   margin: 0 auto;
@@ -50,7 +50,7 @@
 .store-hero-visual.store-hero-banner{
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg,#f7f7fb,#fff 55%,#ededfa);
+  background: var(--site-panel-soft);
   border: 1px solid var(--site-border);
   min-height: 220px;
   height: 220px;
@@ -59,14 +59,18 @@
 .store-hero-banner-inner{
   position: absolute;
   inset: 0;
-  display: block;
+  display: grid;
 }
-.store-hero-orbit{position:absolute;width:76%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(48,43,143,.13);left:12%;top:12%}
-.store-hero-product{position:absolute;display:block;object-fit:cover;aspect-ratio:1;border-radius:18px;border:1px solid rgba(48,43,143,.1);box-shadow:0 22px 50px rgba(35,31,104,.16)}
-.store-hero-product--main{width:48%;height:auto;left:26%;top:17%;z-index:3;transform:rotate(-2deg)}
-.store-hero-product--left{width:30%;height:auto;left:7%;bottom:8%;z-index:2;transform:rotate(-8deg)}
-.store-hero-product--right{width:30%;height:auto;right:7%;bottom:6%;z-index:4;transform:rotate(8deg)}
-.store-hero-signature{position:absolute;right:5%;top:5%;font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-.08em;color:rgba(48,43,143,.07);line-height:1}
+.store-hero-banner img{
+  grid-area: 1 / 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
 @media (min-width: 440px){
   .store-hero-visual.store-hero-banner{ min-height:220px; height:220px; border-radius:22.4px; }
 }
@@ -77,7 +81,7 @@
   .store-hero-visual.store-hero-banner{ min-height:440px; height:440px; }
 }
 
-/* BENEFITS — mt-10 grid 3 cols gap-6, aberto sem card */
+/* BENEFITS â€” mt-10 grid 3 cols gap-6, aberto sem card */
 .store-hero-benefits{
   margin-top: 40px;
   display: grid;
@@ -93,11 +97,11 @@
   display: grid;
   gap: 6px;
 }
-.store-benefit svg{ color: var(--site-accent); width:20px; height:20px; }
+.store-benefit svg{ color: var(--site-orange); width:20px; height:20px; }
 .store-benefit strong{ font-size:14px; font-weight:700; color:var(--site-text); line-height:1.2; }
 .store-benefit span{ font-size:12px; color:var(--site-muted); line-height:1.4; }
 
-/* CATALOGO — SECTION.store-products-section max-w 1280 px-4 sm:px-6 pt-10 pb-12 */
+/* CATALOGO â€” SECTION.store-products-section max-w 1280 px-4 sm:px-6 pt-10 pb-12 */
 .store-products-section{
   max-width: 1280px;
   margin: 0 auto;
@@ -107,7 +111,7 @@
   .store-products-section{ padding: 40px 24px 48px; }
 }
 
-/* TOOLBAR — único container rounded-2xl p-3 */
+/* TOOLBAR â€” Ãºnico container rounded-2xl p-3 */
 .store-toolbar{
   background: var(--site-panel);
   border: 1px solid var(--site-border);
@@ -240,14 +244,14 @@
 .store-view-cart{
   font-size:13px;
   font-weight:700;
-  color: var(--site-accent);
+  color: var(--site-orange);
   background: transparent;
   border:none;
   cursor:pointer;
   white-space:nowrap;
 }
 
-/* GRID — 2 cols mobile, 2 cols tablet, 4 cols desktop lg */
+/* GRID â€” 2 cols mobile, 2 cols tablet, 4 cols desktop lg */
 .store-products-grid{
   display:grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -317,7 +321,7 @@
   margin-top:auto !important;
 }
 
-/* PRODUCT CARD — sem bolha externa, apenas imagem quadrada */
+/* PRODUCT CARD â€” sem bolha externa, apenas imagem quadrada */
 .store-products-grid .product-card{
   background: transparent !important;
   border: none !important;
@@ -367,7 +371,7 @@
   font-size:20px !important;
   line-height:1 !important;
   font-weight:800 !important;
-  color:var(--site-accent) !important;
+  color:var(--site-orange) !important;
 }
 .store-products-grid .price-compare{ font-size:12px; color:var(--site-faint); text-decoration:line-through; margin-left:6px; }
 .store-products-grid .product-card-price > div > p{ display:none !important; } /* remove parcelamento */
@@ -390,4 +394,4 @@
   color: var(--site-text);
   padding:4px 8px; border-radius:999px;
 }
-.store-products-grid .product-badge:not(.seminovo){ background:var(--site-accent); color:#fff; border-color:var(--site-accent); }
+.store-products-grid .product-badge:not(.seminovo){ background:var(--site-orange); color:#fff; border-color:var(--site-orange); }

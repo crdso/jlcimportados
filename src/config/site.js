@@ -9,7 +9,9 @@ export const SITE_INACTIVE = false
 
 export const SITE = {
   name: 'JLC Importados',
-  logo: 'https://i.imgur.com/kR6g4TX.png',
+  logo: '/logo-jlc.png',
+  logoLight: '/logo-clara.png',
+  logoDark: '/logo-escura.png',
   instagram: 'https://www.instagram.com/jlc.importados/',
   instagramHandle: '@jlc.importados',
   whatsapp: 'https://api.whatsapp.com/message/3RJBIRM2N7E6I1?autoload=1&app_absent=0&utm_source=ig',

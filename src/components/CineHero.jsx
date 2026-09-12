@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTheme } from '../context/ThemeContext.jsx'
 
 const CHAPTERS = [
   [0,0,0.11,0.16],
@@ -26,20 +27,31 @@ export default function CineHero(){
   const cueRef = useRef(null)
   const statusRef = useRef(null)
   const progressRef = useRef(0)
-  const [mode] = useState('loading')
-  const src = {
-    desktop:'/video/jlc-hero-desktop.mp4',
-    mobile:'/video/jlc-hero-mobile.mp4',
-    poster:'/video/jlc-hero-poster.webp',
-    final:'/video/jlc-hero-final.webp',
+  const { theme } = useTheme()
+  const [mode,setMode] = useState('loading')
+
+  const sources = {
+    dark: {
+      desktop:'/video/miphone-scroll/miphone-scroll-desktop-dark.mp4',
+      mobile:'/video/miphone-scroll/miphone-scroll-mobile-dark.mp4',
+      poster:'/video/miphone-scroll/miphone-scroll-poster-dark.webp',
+      final:'/video/miphone-scroll/miphone-scroll-final-dark.webp',
+    },
+    light: {
+      desktop:'/video/miphone-scroll/miphone-scroll-desktop.mp4',
+      mobile:'/video/miphone-scroll/miphone-scroll-mobile.mp4',
+      poster:'/video/miphone-scroll/miphone-scroll-poster.webp',
+      final:'/video/miphone-scroll/miphone-scroll-final.webp',
+    }
   }
+  const src = sources[theme] || sources.dark
 
   useEffect(()=>{
     const b = sectionRef.current
     const s = stageRef.current
     const j = videoRef.current
     if(!b||!s||!j) return
-    const E = Array.from(copyRef.current?.querySelectorAll('.jlc-cine-line')??[])
+    const E = Array.from(copyRef.current?.querySelectorAll('.miphone-cine-line')??[])
 
     function setStatus(text,ready){
       const el=statusRef.current
@@ -119,6 +131,7 @@ export default function CineHero(){
     function onLoaded(){
       b.dataset.mode='video'
       setStatus('',true)
+      // preservar progresso ao trocar tema
       const p = progressRef.current
       const d = dur()
       if(d>0 && p>0){
@@ -139,9 +152,10 @@ export default function CineHero(){
     window.addEventListener('resize', onScrollFrame, {passive:true})
     window.addEventListener('orientationchange', onScrollFrame, {passive:true})
 
-    const warm = ()=>{ const p=j.play(); if(p) p.then(()=>j.pause()).catch(()=>{}) }
+    const warm = ()=>{ const p=j.play(); p&&p.then(()=>j.pause()).catch(()=>{}) }
     window.addEventListener('pointerdown', warm, {once:true, passive:true})
 
+    // troca de tema preserva progresso: antes de trocar src, salva progresso
     const currentProgress = progressRef.current
     j.src=O
     j.load()
@@ -171,31 +185,31 @@ export default function CineHero(){
       if(raf) cancelAnimationFrame(raf)
       if(raf2) cancelAnimationFrame(raf2)
     }
-  },[src.desktop, src.mobile])
+  },[src.desktop, src.mobile, theme])
 
   return (
-    <section ref={sectionRef} id="hero" className="jlc-cine" data-mode={mode} aria-labelledby="jlc-title">
-      <div ref={stageRef} className="jlc-cine-stage">
-        <div className="jlc-cine-frame">
-          <video ref={videoRef} className="jlc-cine-video" muted playsInline preload="auto" poster={src.poster} aria-hidden tabIndex={-1} />
-          <img src={src.final} alt="Smartphone em destaque na JLC Importados" className="jlc-cine-fallback" loading="lazy" decoding="async" />
+    <section ref={sectionRef} id="hero" className="miphone-cine" data-mode={mode} data-theme={theme} aria-labelledby="miphone-title">
+      <div ref={stageRef} className="miphone-cine-stage">
+        <div className="miphone-cine-frame">
+          <video ref={videoRef} className="miphone-cine-video" muted playsInline preload="auto" poster={src.poster} aria-hidden tabIndex={-1} />
+          <img src={src.final} alt="Smartphone em destaque na JLC Importados" className="miphone-cine-fallback" loading="lazy" decoding="async" />
         </div>
 
-        <div ref={copyRef} className="jlc-cine-copy">
-          <p className="jlc-cine-kicker">JLC IMPORTADOS</p>
-          <div className="jlc-cine-lines">
-            <h1 className="jlc-cine-line" id="jlc-title">Seu próximo <em>upgrade</em> começa aqui.</h1>
-            <p className="jlc-cine-line" aria-hidden="true">Do detalhe à <em>experiência<span className="jlc-cine-stop">.</span></em></p>
-            <p className="jlc-cine-line" aria-hidden="true">Tecnologia que acompanha <em>seu ritmo<span className="jlc-cine-stop">.</span></em></p>
-            <p className="jlc-cine-line" aria-hidden="true">Você escolhe. A <em>JLC</em> aproxima.</p>
+        <div ref={copyRef} className="miphone-cine-copy">
+          <p className="miphone-cine-kicker">JLC IMPORTADOS</p>
+          <div className="miphone-cine-lines">
+            <h1 className="miphone-cine-line" id="miphone-title">Seu próximo <em>upgrade</em> começa aqui.</h1>
+            <p className="miphone-cine-line" aria-hidden="true">Do detalhe à <em>experiência<span className="miphone-cine-stop">.</span></em></p>
+            <p className="miphone-cine-line" aria-hidden="true">Tecnologia que acompanha <em>seu ritmo<span className="miphone-cine-stop">.</span></em></p>
+            <p className="miphone-cine-line" aria-hidden="true">Você escolhe. A <em>JLC</em> aproxima.</p>
           </div>
-          <p ref={supportRef} className="jlc-cine-support">Produtos selecionados e contato direto com a JLC Importados.</p>
-          <div className="jlc-cine-rail" aria-hidden="true"><i /></div>
-          <p ref={statusRef} className="jlc-cine-status" aria-live="polite" />
+          <p ref={supportRef} className="miphone-cine-support">Produtos selecionados e contato direto com a JLC Importados.</p>
+          <div className="miphone-cine-rail" aria-hidden="true"><i /></div>
+          <p ref={statusRef} className="miphone-cine-status" aria-live="polite" />
         </div>
 
-        <div ref={cueRef} className="jlc-cine-cue" aria-hidden="true"><span />Role para avançar</div>
-        <div className="jlc-cine-veil" aria-hidden="true" />
+        <div ref={cueRef} className="miphone-cine-cue" aria-hidden="true"><span />Role para avançar</div>
+        <div className="miphone-cine-veil" aria-hidden="true" />
       </div>
     </section>
   )
